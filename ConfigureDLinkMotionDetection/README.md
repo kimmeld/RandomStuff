@@ -42,9 +42,21 @@ ReplySuccessPage=motion.htm&ReplyErrorPage=motion.htm&MotionDetectionEnable=1&Mo
 
 While testing, I discovered that the camera checks the `Referer` header.
 
+The curl commands to do this change are:
+
+```
+# Set motion detection
+curl -u admin:password http://camera/motion.cgi -d "ConfigTemp=Java&MotionDetectionBlockSet=1111111111111111111111111"
+
+# Save
+curl -u admin:password http://camera/setSystemMotion -H 'Referer: http://camera/setSystemMotion' -d "ReplySuccessPage=motion.htm&ReplyErrorPage=motion.htm&MotionDetectionEnable=1&MotionDetectionScheduleDay=0&MotionDetectionScheduleMode=0&MotionDetectionSensitivity=90&ConfigSystemMotion=Save"
+```
+
 # The Solution
 
-As mentioned earlier, the whole point of this was to allow my parents to use the camera to keep an eye on a stray cat.  Using the findings above, I created a Shortcut to allow my mom to easily turn on the motion detection and adjust the camera's motion sensitivity.
+As mentioned earlier, the whole point of this was to allow my parents to use the camera to keep an eye on a stray cat.
+
+Using the findings above, I created a [Shortcut](https://apps.apple.com/app/shortcuts/id915249334) to allow my mom to easily turn on the motion detection and adjust the camera's motion sensitivity.  Shortcuts can be developed on a Mac and run on an iPhone or iPad, which made testing against one of my other cameras easy.  Getting the shortcut to my mom's iPhone was simply a matter of sharing it via iMessage.
 
 The shortcut looks like this:
 
